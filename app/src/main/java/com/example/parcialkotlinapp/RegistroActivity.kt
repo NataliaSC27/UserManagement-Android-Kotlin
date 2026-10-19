@@ -25,7 +25,12 @@ class RegistroActivity : AppCompatActivity() {
         setContentView(R.layout.activity_registro)
 
         // Habilitar la flecha de navegación superior (Atrás)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbarRegistro)
+        setSupportActionBar(toolbar)
+
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowHomeEnabled(true)}
 
         // COMPONENTES
         val etNombre = findViewById<EditText>(R.id.etNombre)
@@ -138,28 +143,36 @@ class RegistroActivity : AppCompatActivity() {
 
                         if (response.isSuccessful) {
                             val usuarioCreado = response.body()
+                            tvMensaje.text = ""
 
-                            tvMensaje.text = "Usuario registrado correctamente"
-                            Toast.makeText(
-                                this@RegistroActivity,
-                                "Usuario creado con éxito. ID: ${usuarioCreado?.id}",
-                                Toast.LENGTH_LONG
-                            ).show()
-
-                            // Limpiar formulario
-                            etNombre.text.clear()
-                            etApellido.text.clear()
-                            etCorreo.text.clear()
-                            etPasswordRegistro.text.clear()
-                            etFechaNacimiento.text.clear()
-                            etUniversidad.text.clear()
-                            spinnerSemestre.setSelection(0)
-                            calculatedAge = -1
+                            // MOSTRAR ALERTDIALOG DE CONFIRMACIÓN Y RETORNAR AL LOGIN
+                            androidx.appcompat.app.AlertDialog.Builder(this@RegistroActivity)
+                                .setTitle("Registro exitoso")
+                                .setMessage("El usuario fue creado exitosamente.")
+                                .setPositiveButton("ACEPTAR") { dialog, _ ->
+                                    dialog.dismiss()
+                                    finish() // Cierra la pantalla de registro y regresa al Login
+                                }
+                                .setCancelable(false)
+                                .show()
 
                         } else {
-                            tvMensaje.text = "Error del servidor: ${response.code()}"
-                        }
-                    }
+                            // Manejo de errores del backend
+                            val errorBody = response.errorBody()?.string()
+                            val errorMessage = if (!errorBody.isNullOrEmpty()) {
+                                try {
+                                    //
+                                    val jsonObject = org.json.JSONObject(errorBody)
+                                    jsonObject.optString("mensaje", "Error del servidor: ${response.code()}")
+                                } catch (e: Exception) {
+                                    "Error del servidor: ${response.code()}"
+                                }
+                            } else {
+                                "Error del servidor: ${response.code()}"
+                            }
+
+                            tvMensaje.text = errorMessage
+                        }  }
 
                     override fun onFailure(call: Call<Usuario>, t: Throwable) {
                         btnRegistrar.isEnabled = true

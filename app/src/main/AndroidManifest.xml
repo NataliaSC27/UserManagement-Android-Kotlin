@@ -17,7 +17,8 @@
 
         <activity
             android:name=".RegistroActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".LoginActivity"/>
 
         <activity
             android:name=".ParImparActivity"

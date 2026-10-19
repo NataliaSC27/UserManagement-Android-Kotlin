@@ -11,6 +11,11 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="30dp">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarRegistro"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/transparent" />
 
         <!-- ===================================== -->
         <!-- LOGO -->
@@ -98,16 +103,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="text"
-            android:text="fechaNacimiento" />
+            android:hint="fechaNacimiento"
+            android:inputType="text" />
 
         <EditText
             android:id="@+id/etUniversidad"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="text"
-            android:text="Universidad" />
+            android:hint="Universidad"
+            android:inputType="text" />
 
         <!-- ===================================== -->
         <!-- BOTÓN REGISTRAR -->
