@@ -9,6 +9,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import java.util.Calendar
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.Toolbar
+import android.view.Menu
+import android.view.MenuItem
 
 class MainActivity : AppCompatActivity() {
 
@@ -85,21 +89,54 @@ class MainActivity : AppCompatActivity() {
         }
 
         // =====================================
-        // VOLVER AL LOGIN
+        // CERRAR SESION
         // =====================================
 
-        val btnVolver2 =
-            findViewById<Button>(R.id.btnVolver2)
-
-        btnVolver2.setOnClickListener {
-
-            val intent = Intent(
-                this,
-                LoginActivity::class.java
-            )
-
-            startActivity(intent)
+        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbarMain)
+        if (toolbar != null) {
+            setSupportActionBar(toolbar)
+            supportActionBar?.title = "Inicio"
         }
 
+
+
+
+        }
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
     }
-}
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_logout -> {
+                mostrarDialogoCerrarSesion()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun mostrarDialogoCerrarSesion() {
+        AlertDialog.Builder(this)
+            .setTitle("Cerrar sesión")
+            .setMessage("¿Está seguro de que desea cerrar sesión?")
+            .setNegativeButton("CANCELAR") { dialog, _ -> dialog.dismiss() }
+            .setPositiveButton("SALIR") { dialog, _ ->
+                dialog.dismiss()
+                cerrarSesionYRegresarLogin()
+            }
+            .setCancelable(false)
+            .show()
+    }
+
+    private fun cerrarSesionYRegresarLogin() {
+        val intent = Intent(this, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish()
+    }
+    }
+

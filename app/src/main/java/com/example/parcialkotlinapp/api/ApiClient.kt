@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object ApiClient {
 
     // 10.0.2.2 representa nuestro PC desde el emulador Android
-    private const val BASE_URL = "http://192.168.0.19:62129/"
+    private const val BASE_URL = "http://10.252.234.249:62129/"
 
     private val retrofit: Retrofit =
         Retrofit.Builder()
