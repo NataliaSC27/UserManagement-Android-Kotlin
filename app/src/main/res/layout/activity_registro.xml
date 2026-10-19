@@ -89,35 +89,34 @@
         <!-- EDAD -->
         <!-- ===================================== -->
 
-        <EditText
-            android:id="@+id/etEdad"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:hint="Edad"
-            android:inputType="number" />
-
         <!-- ===================================== -->
         <!-- ROL -->
         <!-- ===================================== -->
 
-        <TextView
+        <EditText
+            android:id="@+id/etFechaNacimiento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="5dp"
-            android:text="Rol"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:ems="10"
+            android:inputType="text"
+            android:text="fechaNacimiento" />
 
-        <Spinner
-            android:id="@+id/spRol"
+        <EditText
+            android:id="@+id/etUniversidad"
             android:layout_width="match_parent"
-            android:layout_height="50dp" />
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            android:text="Universidad" />
 
         <!-- ===================================== -->
         <!-- BOTÓN REGISTRAR -->
         <!-- ===================================== -->
+
+        <Spinner
+            android:id="@+id/spinnerSemestre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/btnRegistrar"
@@ -142,14 +141,6 @@
         <!-- ===================================== -->
         <!-- BOTÓN VOLVER -->
         <!-- ===================================== -->
-
-        <Button
-            android:id="@+id/btnVolver"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="30dp"
-            android:text="VOLVER AL LOGIN" />
 
     </LinearLayout>
 
